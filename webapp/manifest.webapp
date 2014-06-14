@@ -1,0 +1,31 @@
+{
+  "name": "ConfCounter",
+  "description": "Time Counter for Conferences",
+  "launch_path": "/index.html",
+  "appcache_path": "/manifest.appcache",
+  "developer": {
+    "name": "Ale Rimoldi <ale@ideale.ch>",
+    "url": "https://github.com/aoloe/firefoxos-confcounter"
+  },
+  "installs_allowed_from": ["*"],
+  "locales": {
+    "en-US": {
+      "name": "ConfCounter",
+      "description": "Time Counter for Conferences"
+    },
+    "fr": {
+      "name": "ConfCounter",
+      "description": "Compteur de minutes pour conférences"
+    },
+    "it": {
+      "name": "ConfCounter",
+      "description": "Minuti fino alla fine della conferenza" 
+    }   
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "128": "/icons/confcounter-128.png",
+    "60": "/icons/confcounter-60.png"
+  },
+  "orientation": "portrait-primary"
+}
