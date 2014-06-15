@@ -12,7 +12,7 @@
                 line-height:90%;
                 overflow:hidden;
             }
-            #timer {
+            .timer {
                 text-align:right;
                 align:right;
             }
@@ -57,29 +57,94 @@
                     plus(5);
                 }
             }
+
+            var timer_value = 0;
+            var timer_id = 0;
+            function timer_reset() {
+                var item = document.getElementById("counter");
+                counter = parseInt(item.innerHTML);
+
+                timer_update(counter*60);
+            }
+            function timer_start() {
+                timer_id = setInterval(function(){timer_update()}, 1000);
+                var button = document.getElementById("timer_startstop");
+                // button.innerHTML = "||";
+                button.innerHTML = "❚❚";
+            }
+
+            function timer_stop() {
+                clearInterval(timer_id);
+                timer_id = 0;
+                var button = document.getElementById("timer_startstop");
+                button.innerHTML = "▶";
+            } 
+
+            function timer_manage() {
+                if (timer_id == 0) {
+                    timer_start()
+                } else {
+                    timer_stop()
+                }
+            }
+
+            function timer_update(n) {
+                if (typeof(n) != "undefined") {
+                    timer_value = n;
+                } else if (timer_value > 0) {
+                    timer_value--;
+                } else {
+                    timer_stop();
+                }
+
+                var m = Math.floor(timer_value / 60);
+                var s = timer_value % 60;
+                document.getElementById("timer").innerHTML = m+":"+(s < 10 ? "0" : "")+s;
+            }
+
         </script>
     </head>
-    <body role="application" onmousedown="plusminus(event)">
+    <body role="application">
         <section role="region" data-state="none">
             <header>
-                <p class="counter">
+                <p class="counter" style="border:1px solid black;" onmousedown="plusminus(event)">
                     <span id="counter">0</span>
                 </p>
-                <p id="timer">
-                <script>
-                var myCountdown1 = new Countdown({
-                    // style: "flip",
-                    rangeHi:"minute",
-                    // width:100,
-                    // height:40,
-                    width:75,
-                    height:40,
-                    time:316
-                });
+                <p class="timer">
+                    <button onclick="timer_reset()">↳</button>
+                    <button id="timer_startstop" style="letter-spacing=-2px;" onclick="timer_manage()">▶</button>
+                    <span id="timer">0:00</span>
                 </script>
                 </p>
             </header>
-        <div id="chrono" role="main">
-        </div>
+        <button id="installButton">Install app</button>
     </body>
 </html>
+<script>
+
+/*
+var manifest_url = 'http://michaelkohler.info/firefoxosdemo/manifest.webapp';
+var button = document.querySelector("#installButton");
+
+function install() {        
+    var installapp = navigator.mozApps.install(manifest_url);
+    installapp.onsuccess = function(data) {
+      alert("App installed");
+    };
+    installapp.onerror = function() {
+      alert("Not installed: " + installapp.error.name);
+    };
+}
+
+var installCheck = navigator.mozApps.checkInstalled(manifest_url);
+
+installCheck.onsuccess = function() {
+  if(installCheck.result) {
+    button.style.display = "none";
+  } else {
+    button.addEventListener('click', install, false);
+  };
+};
+*/
+</script>
+
